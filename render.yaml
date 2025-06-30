@@ -8,3 +8,5 @@ services:
     autoDeploy: true
     region: frankfurt
     runtime: python
+    build:
+      pythonVersion: 3.11.9
