@@ -3,3 +3,4 @@ apscheduler==3.6.3
 nest_asyncio==1.6.0
 requests==2.31.0
 filetype
+imghdr
