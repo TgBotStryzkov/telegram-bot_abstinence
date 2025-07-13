@@ -18,17 +18,14 @@ import re
 from telegram.ext import Application
 import time
 import nest_asyncio
+from dotenv import load_dotenv
+load_dotenv()
 nest_asyncio.apply()
 
 # 🔒 Глобальный кэш пользователей
 user_cache = {}
 
-# 🔑 Пул ключей Groq API
-groq_keys = [
-    "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",
-    "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",
-    "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"
-]
+groq_keys = os.getenv("GROQ_KEYS", "").split(",")
 
 # 🔢 Индекс текущего ключа
 groq_key_index = 0
@@ -288,7 +285,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         try:
             headers = {
-                "Authorization": f"Bearer 4a2b33468e925b6e6a49b7aa9dcd5d10c9f8b66b94d3c8b406e4829e12cdc914",
+                "Authorization": f"Bearer {os.getenv('TOGETHER_API_KEY')}",
                 "Content-Type": "application/json"
             }
 
@@ -384,8 +381,8 @@ async def evening_message(app: Application) -> None:
 # from your_module import start, help_command, support, handle_text, morning_message, evening_message, autosave_all_users
 
 async def main():
-    # Создание приложения
-    app = ApplicationBuilder().token("8164293392:AAEJU4G3OLHydRiv6pmh9RboxrK50_X7TPc").build()
+    BOT_TOKEN = os.getenv("BOT_TOKEN")
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
 
     # Установка автоподсказок команд
     await app.bot.set_my_commands([
